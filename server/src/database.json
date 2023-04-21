@@ -1,0 +1,16 @@
+{
+    "dev": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "nodeapitest",
+      "user": "postgres",
+      "password": "omerenma1"
+    },
+    "test": {
+      "driver": "pg",
+      "host": "127.0.0.1",
+      "database": "yourdatabasename_test",
+      "user": "yourdatabaseuser",
+      "password": "yourdatabasepassword"
+    }
+  }
