@@ -34,21 +34,46 @@ self.getAll = async (req, res) => {
 * @returns JSON
 */
 self.createAccount = async (req, res) => {
-        if (!req.body.first_name || !req.body.last_name || !req.body.username || !req.body.email || !req.body.student_id || !req.body.password) {
+    const { first_name, last_name, username, email, student_id, password, outstanding } = req.body;
+        if (!first_name || !last_name || !username || !email || !student_id || !password) {
             return res.status(400).send({
                 success: false,
                 message: "Fields can not be empty!"
             });
         }
         try {
+            const find_username = await account.findOne({ where: { username } });
+            const find_email = await account.findOne({ where: { email } });
+            const find_student_id = await account.findOne({ where: { student_id } });
+
+            if(find_username) {
+                return res.status(406).send({
+                    success: false,
+                    message: "Username already exists"
+                })
+            }
+            if(find_email) {
+                return res.status(406).send({
+                    success: false,
+                    message: "Email already exists"
+                })
+            }
+            if(find_student_id) {
+                return res.status(406).send({
+                    success: false,
+                    message: "Student id already exists"
+                })
+            }
+
+
             const newAccount = {
-                first_name: req.body.first_name,
-                last_name: req.body.last_name,
-                username: req.body.username,
-                email: req.body.email,
-                student_id: req.body.student_id,
-                password: req.body.password,
-                outstanding: req.body.outstanding || false
+                first_name,
+                last_name,
+                username,
+                email,
+                student_id,
+                password,
+                outstanding
             };
             let data = await account.create(newAccount);
             return res.status(201).json({
