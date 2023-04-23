@@ -1,4 +1,6 @@
+const bcrypt = require("bcryptjs");
 const { account, Sequelize } = require("../models");
+
 let self = {};
 
 /**
@@ -42,10 +44,12 @@ self.createAccount = async (req, res) => {
             });
         }
         try {
+            // check if username, email, or student_id already exists
             const find_username = await account.findOne({ where: { username } });
             const find_email = await account.findOne({ where: { email } });
             const find_student_id = await account.findOne({ where: { student_id } });
-
+       
+            // if username, email, or student_id already exists return a 406 status code
             if(find_username) {
                 return res.status(406).send({
                     success: false,
@@ -65,6 +69,11 @@ self.createAccount = async (req, res) => {
                 })
             }
 
+        // Hash password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+        
+
 
             const newAccount = {
                 first_name,
@@ -72,7 +81,7 @@ self.createAccount = async (req, res) => {
                 username,
                 email,
                 student_id,
-                password,
+                password: hashedPassword,
                 outstanding
             };
             let data = await account.create(newAccount);
