@@ -31,6 +31,14 @@ self.getAll = async (req, res) => {
 };
 
 
+/**
+ * @description Create New Invoice
+ * @type POST
+ * @path /invoices
+ * @param {*} req
+ * @param {*} res
+ * @returns JSON
+ */
 
 self.createInvoice = async (req, res) => {
   const {account_id, type, amount, reference, paid, book_id, course_id} = req.body
