@@ -41,7 +41,6 @@ self.login = async (req, res) => {
     const token = jwt.sign({ id: find_email.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
     res.json({ token });
   } catch (error) {
-      console.log(error)
     return res.status(400).json({
       success: false,
       error: error

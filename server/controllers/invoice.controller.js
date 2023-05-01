@@ -3,9 +3,9 @@ const {invoice, Sequelize} = require('../models');
 const self = {};
 
 /**
- * @description Get All Books
+ * @description Get All Invoices
  * @type GET
- * @path /books
+ * @path /invoices
  * @param {*} req
  * @param {*} res
  * @returns JSON
@@ -33,28 +33,45 @@ self.getAll = async (req, res) => {
 
 
 self.createInvoice = async (req, res) => {
+  const {account_id, type, amount, reference, paid, book_id, course_id} = req.body
+
+  console.log(req.body)
   
+  if(account_id === '' || type === '' || amount === '' || reference === "" || paid === ''){
+    return res.status(400).send({
+      success:false,
+      message:'Fields cannot be empty'
+    })
+  }
+
+
   try {
-    const {account_id, type, amount,  paid} = req.body
-    if(account_id === '' || type === '' || amount === '' || paid === ''){
-      return res.status(400).send({
-        success:false,
-        message:'Fields cannot be empty'
+
+    const find_invoice_for_library = await invoice.findOne({ where: { type: 2, book_id: book_id } });
+    if(find_invoice_for_library) {
+      return res.status(406).send({
+        success: false,
+        message: `Invoice with this reference: ${reference} already exists`
       })
-    }else{
-      console.log('Body in')
-      const newInvoice = {account_id, type, amount, paid }
+    }
+    const find_invoice_for_course = await invoice.findOne({ where: { type: 1, course_id: course_id } });
+    if(find_invoice_for_course) {
+      return res.status(406).send({
+        success: false,
+        message: `Invoice with this reference: ${reference} already exists`
+      })
+    }
+
+      const newInvoice = {account_id, type, amount, reference, paid, book_id, course_id }
 
       let data = await invoice.create(newInvoice)
-  
       return  res.status(201).json({
-      success:true,
-      data:data
+      success: true,
+      data: data
      });
 
-    }
   } catch (error) {
-    console.log('ERROR :',error.message)
+    console.log(error, 'eerrrrrrorororor')
     return res.status(500).json({
       success: false,
       error: error
