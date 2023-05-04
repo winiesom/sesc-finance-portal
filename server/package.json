@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon index.js",
     "dev": "NODE_ENV=development node index.js",
-    "test": "jest --testPathPattern='tests/*' --watch"
+    "test": "jest --testPathPattern='tests/*'"
   },
   "keywords": [],
   "author": "",

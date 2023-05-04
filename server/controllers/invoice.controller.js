@@ -210,14 +210,13 @@ self.payInvoice = async (req, res) => {
      await invoice.update(invoicePayment, { where: { reference: id } });
 
      const updatedInvoiceRecord = await invoice.findOne({ where: { reference: id } });
-    return res.json(updatedInvoiceRecord);
+    return res.status(200).json(updatedInvoiceRecord);
   } catch (error) {
     return res.status(400).json({
       error: error
     });
   }
 }
-
 
 
 module.exports = self;

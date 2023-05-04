@@ -3,11 +3,11 @@ const { invoice } = require('../models');
 const httpMocks = require('node-mocks-http');
 
 describe('getAllInvoices', () => {
-  it('should return all invoices for specific account', async () => {
+  it('should return all invoices', async () => {
     const account_id = 'c736472345';
     const invoices = [
         { id: 1, account_id: 'c736472345', amount: 30, reference: 'AEDF234', paid: true, type: 2, book_id: 3, course_id: null, createdAt: "2023-05-01T09:50:38.119Z", updatedAt: "2023-05-01T09:50:38.119Z" },
-        { id: 2, account_id: 'c400500200', amount: 300, reference: 'YKDF23H', paid: false, type: 1, book_id: null, course_id: 3, createdAt: "2023-05-02T09:50:38.119Z", updatedAt: "2023-05-02T09:50:38.119Z" }
+        { id: 2, account_id: 'c736472345', amount: 300, reference: 'YKDF23H', paid: false, type: 1, book_id: null, course_id: 3, createdAt: "2023-05-02T09:50:38.119Z", updatedAt: "2023-05-02T09:50:38.119Z" }
     ];
     jest.spyOn(invoice, 'findAll').mockResolvedValue(invoices);
 
