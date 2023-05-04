@@ -212,7 +212,6 @@ self.payInvoice = async (req, res) => {
      const updatedInvoiceRecord = await invoice.findOne({ where: { reference: id } });
     return res.json(updatedInvoiceRecord);
   } catch (error) {
-    console.log(error)
     return res.status(400).json({
       error: error
     });

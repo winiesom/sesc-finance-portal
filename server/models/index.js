@@ -16,11 +16,22 @@ if (config.use_env_variable) {
   sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
+
 sequelize.authenticate().then(()=>{
-  console.log('Connection has been established successfully.');
+  if (process.env.NODE_ENV === 'test') {
+    sequelize.options.logging = false;
+  } else {
+    console.log('Connection has been established successfully.');
+  }
   }).catch (error =>{
-  console.error('Unable to connect to the database');
+    if (process.env.NODE_ENV === 'test') {
+      sequelize.options.logging = false;
+    } else {
+      console.error('Unable to connect to the database');
+    }
   })
+
+  
 
 fs
   .readdirSync(__dirname)

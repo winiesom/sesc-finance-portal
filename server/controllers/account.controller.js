@@ -46,7 +46,6 @@ self.getAccount = async (req, res) => {
       });
 
       const paidAll = (checkPaid === allInvoices);
-      console.log(paidAll, 'PAAAAAAIIIIIIIDDDD')
 
       let updateOutstanding;
 
@@ -140,7 +139,6 @@ self.outstanding = async (req, res) => {
         success: true
       });
     } catch (error) {
-      console.log(error);
       res.status(500).json({
         success: false,
         error: error

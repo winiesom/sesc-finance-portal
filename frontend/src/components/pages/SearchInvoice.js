@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
 import { Grid, Paper } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import PaymentIcon from '@mui/icons-material/Payment';
+
 import { ThreeDots } from "react-loader-spinner";
 
 
@@ -70,7 +71,7 @@ const SearchInvoice = () => {
   }
 
   const handlePayInvoice = () => {
-    const { id, account_id, amount, type, reference, paid, book_id, course_id, createdAt, updatedAt } = invoice.data;
+    const { id, account_id, amount, type, reference, book_id, course_id, createdAt, updatedAt } = invoice.data;
 
     setPaymentLoading(true);
 

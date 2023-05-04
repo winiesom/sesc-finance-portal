@@ -62,7 +62,6 @@ function createData(sn, reference, amount, type, paid) {
 const AllInvoices = () => {
   const [loading, setLoading] = useState(false);
   const [serverError, setServerError] = useState(false);
-  const [error, setError] = useState(false);
   const [serverSuccess, setServerSuccess] = useState(false);
   
   const { message } = useSelector((state) => state.message);

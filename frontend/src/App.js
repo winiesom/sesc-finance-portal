@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './components/login/Login';
-import Layout from './components/layout/Layout';
 import AllInvoices from './components/pages/AllInvoices';
 import SearchInvoice from './components/pages/SearchInvoice';
 import NotFound from './components/NotFound';
