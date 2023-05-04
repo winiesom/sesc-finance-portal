@@ -1,0 +1,52 @@
+.login-container {
+    display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   height: 100vh;
+}
+
+
+.reg-container {
+    width: 400px;
+    height: auto;
+    background-color: #ffffff;
+    padding: 25px 30px 30px 15px;
+}
+
+.login-container {
+    width: 300px;
+    height: 250px;
+    background-color: #ffffff;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    padding: 20px;
+}
+
+.textfield-grid-container {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.textfield-grid {
+    padding: 0 !important;
+    /* margin-left: -12px !important; */
+}
+
+.submitBtn {
+    width: 94%;
+    margin: 12px !important;
+}
+.submitBtn:hover {
+    background: rgb(155, 107, 192) !important;
+}
+.submitBtn:disabled {
+    background: rgb(171, 142, 192) !important;
+}
+
+.title-style {
+    margin-left: 15px !important;
+}

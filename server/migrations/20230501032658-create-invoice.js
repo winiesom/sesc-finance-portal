@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
         references:{
           model: "accounts",
-          key: "student_id"
+          key: "account_id"
         },
         onDelete: "cascade",
         onUpdate: "cascade"

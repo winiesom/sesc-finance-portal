@@ -1,5 +1,5 @@
 
-const {invoice, Sequelize} = require('../models');
+const {invoice, account, Sequelize} = require('../models');
 const self = {};
 
 /**
@@ -12,18 +12,67 @@ const self = {};
  */
 
 
-self.getAll = async (req, res) => {
+self.getAllInvoices = async (req, res) => {
+  
   try {
-    const result = await invoice.findAll({})
-    return res.status(200).json({
-      success: true,
-      data: result
-  })
-    
-  } catch (error) {
-    console.log('ERROR :',error.message)
+    let data = await invoice.findAll({ 
+      where : {
+        account_id: req.account_id
+      }
+     });
 
-    return res.status(500).json({
+     if (data) {
+       return res.status(200).json({
+         success: true,
+         count: data.length,
+         data: data
+       })
+     }
+  } catch(error) {
+    res.status(400).json({
+      success: false,
+      error: error
+  })
+  }
+};
+
+
+/**
+ * @description Get Invoice
+ * @type GET
+ * @path /invoices/:id
+ * @param {*} req
+ * @param {*} res
+ * @returns JSON
+ */
+
+
+self.getInvoice = async (req, res) => {
+
+  const { id } = req.params;
+  
+  try {
+    let data = await invoice.findOne({ 
+      where : {
+        reference: id
+      }
+     });
+
+     if(!data) {
+      return res.status(404).json({
+        success: false,
+        message: `Invoice with reference: ${id} does not exist`
+      });
+     }
+
+     if (data) {
+       return res.status(200).json({
+         success: true,
+         data: data
+       })
+     }
+  } catch(error) {
+    res.status(400).json({
       success: false,
       error: error
   })
@@ -43,7 +92,6 @@ self.getAll = async (req, res) => {
 self.createInvoice = async (req, res) => {
   const {account_id, type, amount, reference, paid, book_id, course_id} = req.body
 
-  console.log(req.body)
   
   if(account_id === '' || type === '' || amount === '' || reference === "" || paid === ''){
     return res.status(400).send({
@@ -73,18 +121,102 @@ self.createInvoice = async (req, res) => {
       const newInvoice = {account_id, type, amount, reference, paid, book_id, course_id }
 
       let data = await invoice.create(newInvoice)
+       
       return  res.status(201).json({
       success: true,
       data: data
      });
 
   } catch (error) {
-    console.log(error, 'eerrrrrrorororor')
     return res.status(500).json({
       success: false,
       error: error
   })
 }
+}
+
+
+/**
+ * @description Pay Invoice
+ * @type PUT
+ * @path /invoices/:id
+ * @param {*} req
+ * @param {*} res
+ * @returns JSON
+ */
+
+self.payInvoice = async (req, res) => {
+  const { id } = req.params;
+  const invoicePayment = req.body;
+
+  try {
+
+    let data = await invoice.findOne({ 
+      where : {
+        reference: id
+      }
+     });
+
+     if(!data) {
+      return res.status(404).json({
+        success: false,
+        message: `Invoice with reference: ${id} does not exist`
+      });
+     }
+
+     if(req.account_id !== invoicePayment.account_id) {
+      return res.status(403).send({
+        success: false,
+        message: "This invoice belongs to another user"
+    });
+     }
+
+    if(id !== invoicePayment.reference) {
+      return res.status(403).send({
+        success: false,
+        message: "Reference do not match"
+    });
+    }
+
+    const find_owner = await invoice.findOne({
+      where: {
+        account_id: req.account_id,
+        reference: id
+      }
+    })
+
+    if (!find_owner) {
+      return res.status(403).send({
+        success: false,
+        message: "This invoice belongs to another user"
+    });
+    }
+
+    const find_paid_reference = await invoice.findOne({
+      where: {
+        account_id: req.account_id,
+        reference: id,
+        paid: true
+      }
+    })
+
+    if (find_paid_reference) {
+      return res.status(406).send({
+        success: false,
+        message: "You have already paid this invoice"
+    });
+    }
+
+     await invoice.update(invoicePayment, { where: { reference: id } });
+
+     const updatedInvoiceRecord = await invoice.findOne({ where: { reference: id } });
+    return res.json(updatedInvoiceRecord);
+  } catch (error) {
+    console.log(error)
+    return res.status(400).json({
+      error: error
+    });
+  }
 }
 
 

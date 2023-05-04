@@ -27,7 +27,7 @@ module.exports = {
         allowNull: false,
         unique: true
       },
-      student_id: {
+      account_id: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true

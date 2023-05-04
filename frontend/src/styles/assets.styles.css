@@ -1,0 +1,25 @@
+.success {
+    background: rgba(102, 45, 145, 0.8) !important;
+    color: #f8f0e3 !important;
+    margin: 55px;
+    border-radius: 5px;
+    font-size: 12;
+  }
+  .close {
+    padding: 4px;
+  }
+  .error {
+    background: #d13232 !important;
+    font-size: 12px;
+  }
+  .message {
+    display: flex;
+    align-items: center;
+  }
+  .iconVariant {
+    margin-right: 10px;
+  }
+  .icon {
+    font-size: 20px;
+  }
+  

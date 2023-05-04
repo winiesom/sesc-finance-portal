@@ -38,8 +38,10 @@ self.login = async (req, res) => {
     // If all credentials are correct, sign jwt and return a response with successful and jwt token
 
     // Generate token
-    const token = jwt.sign({ id: find_email.id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-    res.json({ token });
+    const token = jwt.sign({ id: find_email.id, account_id: find_email.account_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    const data = { id: find_email.id, account_id: find_email.account_id, first_name:find_email.first_name, last_name: find_email.last_name }
+
+    res.json({ token, data });
   } catch (error) {
     return res.status(400).json({
       success: false,

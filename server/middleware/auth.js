@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  console.log(authHeader)
   const token = authHeader && authHeader.split(' ')[1];
   
   if (!token) {
@@ -12,6 +11,7 @@ module.exports = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.id = decoded.id;
+    req.account_id = decoded.account_id;
     next();
   } catch (err) {
     return res.status(401).json({ message: 'Token is not valid' });
