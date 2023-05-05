@@ -6,7 +6,8 @@ import Cookies from "js-cookie";
 import { Link, Navigate } from 'react-router-dom';
 
 
-import {Colors} from '../../assets/themes/colors'
+import {Colors} from '../../assets/themes/colors';
+import "../../styles/invoice.styles.css";
 
 const Layout = () => {
 
@@ -18,7 +19,8 @@ const Layout = () => {
   return (
     <div>
       <AppBar position="static" sx={{background: Colors.primary}}>
-        <Toolbar>
+        <Toolbar className="toolbar-style">
+        <div className="toolbar-child">
         <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -37,14 +39,18 @@ const Layout = () => {
           </Typography>
 
           <Button component={Link} to="/home/invoice" color="inherit">
-            Search Invoice
+            Find Invoice
           </Button>
           <Button component={Link} to="/home/invoices" color="inherit">
             All Invoices
           </Button>
-          <Button component={Link} onClick={handleLogout} color="inherit">
+          </div>
+
+          <div>
+          <Button component={Link} onClick={handleLogout} color="inherit" style={{fontSize:"14px", fontWeight:600}}>
             Logout
           </Button>
+          </div>
         </Toolbar>
       </AppBar>
     </div>

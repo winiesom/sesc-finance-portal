@@ -177,6 +177,8 @@ const SearchInvoice = () => {
       <div className="sub-title">Paid</div>
       <div className="sub-title-text">{invoice.data.paid === false ? "No" : "Yes"}</div>
       </Grid>
+      {
+        !invoice.data.paid && (
       <Grid item xs={12}>
       <CustomButton
         variant="contained"
@@ -194,6 +196,8 @@ const SearchInvoice = () => {
         }
       </CustomButton>
       </Grid>
+        )
+      }
     </div>
 
     )

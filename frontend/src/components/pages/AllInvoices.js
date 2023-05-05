@@ -134,13 +134,13 @@ const AllInvoices = () => {
           label='Loading...'
           />
         </Grid> : rows.length === 0 ? 
-        <Paper elevation={3}>
-        <Grid item xs={12} className={`${"table-tools-container-tab"} ${"table-title"}`}>
+        <Paper elevation={3} className={`${"table-tools-container"} ${"table-title"}`}>
+        {/* <Grid item xs={12}> */}
           <div>
             <FolderOffIcon className="table-no-record-icon" />
           </div>
           <div className="table-no-record-text">No record found</div>
-        </Grid> 
+        {/* </Grid>  */}
         </Paper>
         : 
         
