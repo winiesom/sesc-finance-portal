@@ -9,6 +9,5 @@ const getAccessToken = () => {
 };
 
 export const tokenService = {
-  // setAccessToken,
   getAccessToken,
 };

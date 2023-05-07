@@ -38,6 +38,7 @@ const getAccount = async (req, res) => {
   try {
     let data = await accountService.getAccount(id);
 
+    // return 404 account not found if no account does not exist
     if (!data) {
       return res.status(404).json({
         success: false,
@@ -52,7 +53,6 @@ const getAccount = async (req, res) => {
       data: data
     });
   } catch (error) {
-    console.log(error)
     res.status(500).json({
       success: false,
       error: error
@@ -70,6 +70,8 @@ const getAccount = async (req, res) => {
 */
 const createAccount = async (req, res) => {
   const { first_name, last_name, username, email, account_id, password, outstanding } = req.body;
+
+  // check if field are empty nd return 400 bad request
   if (!first_name || !last_name || !username || !email || !account_id || !password) {
     return res.status(400).send({
       success: false,

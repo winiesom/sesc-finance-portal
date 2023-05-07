@@ -19,6 +19,7 @@ const getInvoice = async (req, res) => {
     const {id} = req.params;
     const invoice = await invoiceService.getInvoice(id);
 
+    // if invoice does not exist, return 404 not found
     if(!invoice) {
       res.status(404).json({
         success: false,
@@ -41,6 +42,7 @@ const getInvoice = async (req, res) => {
 const createInvoice = async (req, res) => {
   const { account_id, type, amount, reference, paid, book_id, course_id } = req.body;
 
+  // check if fields are empty
   if (account_id === '' || type === '' || amount === '' || reference === "" || paid === '') {
     return res.status(400).send({
       success: false,
@@ -71,6 +73,7 @@ const payInvoice = async (req, res) => {
   try {
     const invoice = await invoiceService.getInvoice(id);
 
+    // check if invoice exists
     if (!invoice) {
       return res.status(404).json({
         success: false,
@@ -78,6 +81,8 @@ const payInvoice = async (req, res) => {
       });
     }
 
+    // check if the account_id making the request is equal to account_id of retrieved invoice. 
+    // If not equal, return 403 not acceptable
     if (req.account_id !== invoice.account_id) {
       return res.status(403).send({
         success: false,
@@ -85,6 +90,8 @@ const payInvoice = async (req, res) => {
       });
     }
 
+    // check if id(reference) is equal to reference in the request body coming in. 
+    // If not equal return 403 not acceptable
     if (id !== invoicePayment.reference) {
       return res.status(403).send({
         success: false,
@@ -94,6 +101,7 @@ const payInvoice = async (req, res) => {
 
     const findOwner = await invoiceService.getInvoiceByReference(id);
 
+    // check if invoice belongs to another user
     if (!findOwner) {
       return res.status(403).send({
         success: false,
@@ -101,6 +109,7 @@ const payInvoice = async (req, res) => {
       });
     }
 
+    // check if invoice is paid
     if (findOwner.paid) {
       return res.status(406).send({
         success: false,

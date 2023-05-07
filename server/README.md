@@ -14,8 +14,11 @@ The application is written in Node.js using the express framework.
 
 ### Tools - tools to be installed and setup
     1. Postgres - (https://www.postgresql.org/download/)
-    1. PGADMIN - (https://www.pgadmin.org/download/)
-    2. Node version 16 - (https://nodejs.org/en/download)
+    2. PGADMIN - (https://www.pgadmin.org/download/) - open desktop application and create new server
+            Servers -> Register -> Server.
+            Under the general tab: add server name(PostgreSQL). 
+            Under the connection tab: add host name(localhost), username and password. Note: These are the same details that will be used in the `config.json` file.
+    3. Node version 16 - (https://nodejs.org/en/download)
 
 ### Integrations
 ### 1. Database
@@ -24,7 +27,7 @@ The application is written in Node.js using the express framework.
         `npx sequelize db:create` or `sequelize db:create`
         `npx sequelize db:migrate` or `sequelize db:migrate`
 
-### 2. Student
+### 2. Student Microservice
     * The application integrates with the [Student microservice](https://github.com/winiesom/sesc-student-portal) via REST.
     * When a student is created in the Student microservice, a request is sent to this application to create an account for the student.
     * The credentials to login are the same credentials used in the student portal (c77777777, password).
@@ -32,7 +35,7 @@ The application is written in Node.js using the express framework.
     * When a student checks their eligibility to graduate, a request is sent to this application to see if outstanding is true or false.
 
 
-### 3. Library
+### 3. Library Microservice
     * The application integrates with the [Library microservice](https://github.com/winiesom/sesc-library-portal) via REST.
     * When a borrowed book is overdue and is returned late, a request is sent to this application to generate an invoice.
 
@@ -46,7 +49,7 @@ The application is written in Node.js using the express framework.
     3. Edit the credential in the `.env` file and add you secret key (JWT_SECRET = 123456)
     4. In the server root, rename the `configExample` folder and `config.json.example` file as follows:
         `config` and `config.json`
-    5. Edit the `config.json` file as follows: for development, test and production add the (username, password, database). Note: you may need to download PGADMIN desktop version.
+    5. Edit the `config.json` file as follows: for development, test and production environments add the (username, password, database). Note: you may need to download PGADMIN desktop version.
     6. From the server directory, run the following commands in seperate terminals:
         `npm install`
         `npm start`
