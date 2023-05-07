@@ -14,6 +14,7 @@ const getAllInvoices = async (req, res) => {
   }
 };
 
+
 const getInvoice = async (req, res) => {
   try {
     const {id} = req.params;
