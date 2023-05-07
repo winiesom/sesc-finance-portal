@@ -1,0 +1,81 @@
+
+.invoices-container {
+margin: 0 auto;
+padding: 50px 150px;
+}
+@media only screen and (min-width:150px) and (max-width:600px) {
+    .invoices-container {
+        padding: 50px 20px;
+    }
+}
+
+
+.invoice-container {
+margin: 0 auto;
+padding-top: 50px;
+width: 400px;
+}
+@media only screen and (min-width:300px) and (max-width:600px) {
+    .invoice-container {
+        width: 300px;
+    }
+}
+@media only screen and (min-width:100px) and (max-width:300px) {
+    .invoice-container {
+        width: 200px;
+    }
+}
+
+.textfield-custom-label {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px !important;
+    color: #777;
+}
+.reference-textfield {
+    width: 95%;
+    margin-left: 1px;
+    margin-top: 2px;
+    height: 30px;
+    border: 1px solid #eae6ec;
+    border-radius: 4px;
+    padding-left: 10px;
+}
+
+.reference-textfield:hover {
+    border: 1px solid #662D91;
+}
+.reference-textfield:focus {
+    border: 1px solid #662D91;
+    outline: #662D91;
+}
+
+.reference-error {
+    color: #D13232;
+    font-size: 12px;
+    font-weight: 500;
+    margin-left: 1px;
+    margin-top: 2px;
+}
+
+.search-invoice-container {
+    padding: 20px;
+}
+
+
+.reference-puff-spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 10px;
+}
+
+.toolbar-style {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.toolbar-child {
+    display: flex;
+    flex-direction: row;
+}
