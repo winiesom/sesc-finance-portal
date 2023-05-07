@@ -55,3 +55,5 @@ The application is written in Node.js using the express framework.
         `npm start`
         `npm run test`
 
+## Test using postman
+    `https://documenter.getpostman.com/view/8758683/2s93eYTrWb`
